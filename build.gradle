@@ -92,8 +92,7 @@ configurations {
 
 dependencies {
     implementation "net.neoforged:neoforge:${neo_version}"
-    implementation "curse.maven:cupboard-326652:4669193"
-    implementation "curse.maven:spark-361579:4587309"
+    implementation "curse.maven:cupboard-326652:5477519"
 }
 
 tasks.withType(ProcessResources).configureEach {

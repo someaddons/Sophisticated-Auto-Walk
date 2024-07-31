@@ -28,7 +28,6 @@ public class TemplateMod
 
     public TemplateMod(IEventBus modEventBus, ModContainer modContainer)
     {
-        // ModLoadingContext.get().registerExtensionPoint(IExtensionPoint.DisplayTest.class, () -> new IExtensionPoint.DisplayTest(() -> "", (a, b) -> true));
         NeoForge.EVENT_BUS.register(EventHandler.class);
         modEventBus.addListener(this::setup);
         modEventBus.addListener(this::clientSetup);
