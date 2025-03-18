@@ -1,0 +1,28 @@
+package com.autowalk;
+
+import com.mojang.blaze3d.platform.InputConstants;
+import net.minecraft.client.KeyMapping;
+import net.minecraftforge.client.settings.IKeyConflictContext;
+import net.minecraftforge.client.settings.KeyConflictContext;
+
+public class AutoWalkClient
+{
+    public static       boolean    AUTO_RUN_ENABLED = false;
+    public final static KeyMapping AUTORUN          = new KeyMapping("autowalk.keybind.name", InputConstants.Type.MOUSE, 2, "key.categories.movement");
+    static
+    {
+        AUTORUN.setKeyConflictContext(new IKeyConflictContext() {
+            @Override
+            public boolean isActive()
+            {
+                return false;
+            }
+
+            @Override
+            public boolean conflicts(final IKeyConflictContext other)
+            {
+                return false;
+            }
+        });
+    }
+}
