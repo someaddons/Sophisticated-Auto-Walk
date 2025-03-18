@@ -1,0 +1,21 @@
+{
+  "required": false,
+  "package": "com.autowalk.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "refmap": "autowalk.refmap.json",
+  "mixinPriority": 200,
+  "mixins": [
+  ],
+  "client": [
+    "KeyboardInputMixin",
+    "KeyMappingMixin",
+    "LocalPlayerMixin",
+    "MinecraftMixin",
+    "MultiPlayerGameModeMixin",
+    "ScreenMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 0
+  },
+  "minVersion": "0.8"
+}
