@@ -14,6 +14,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
@@ -45,6 +46,9 @@ public abstract class LocalPlayerMixin extends AbstractClientPlayer
 
     @Unique
     private boolean prevIsInPortal = false;
+
+    @Unique
+    private boolean prevSprinting = false;
 
     @Inject(method = "tick", at = @At("RETURN"))
     private void checkRotation(final CallbackInfo ci)
@@ -119,6 +123,21 @@ public abstract class LocalPlayerMixin extends AbstractClientPlayer
         if (AutoWalk.config.getCommonConfig().stopOnUsingItem)
         {
             AutoWalkClient.AUTO_RUN_ENABLED = false;
+        }
+    }
+
+    @Inject(method = "aiStep", at = @At("HEAD"))
+    private void checkSprint(final CallbackInfo ci)
+    {
+        prevSprinting = isSprinting();
+    }
+
+    @Inject(method = "aiStep", at = @At("RETURN"))
+    private void checkSprintDisabled(final CallbackInfo ci)
+    {
+        if (prevSprinting && AutoWalkClient.AUTO_RUN_ENABLED && AutoWalk.config.getCommonConfig().keepSprintActive && !isSprinting() && !isSwimming())
+        {
+            setSprinting(true);
         }
     }
 }

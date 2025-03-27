@@ -13,6 +13,7 @@ public class CommonConfiguration implements ICommonConfig
     public boolean stopOnInteractWithBlock = true;
     public boolean stopOnInteractWithEntity = true;
     public boolean stopOnUsingItem = true;
+    public boolean keepSprintActive = true;
 
     public CommonConfiguration()
     {
@@ -52,6 +53,11 @@ public class CommonConfiguration implements ICommonConfig
         entry7.addProperty("stopOnUsingItem", stopOnUsingItem);
         root.add("stopOnUsingItem", entry7);
 
+        final JsonObject entry8 = new JsonObject();
+        entry8.addProperty("desc:", "Set whether using an item(eating food, drawing bow etc) does stop auto walking: default:true");
+        entry8.addProperty("keepSprintActive", keepSprintActive);
+        root.add("keepSprintActive", entry8);
+
         final JsonObject entry2 = new JsonObject();
         entry2.addProperty("desc:", "Set after how many seconds of inactivity auto walking gets disabled: default:30 seconds");
         entry2.addProperty("stopAfterInactiveSeconds", stopAfterInactiveSeconds);
@@ -69,5 +75,6 @@ public class CommonConfiguration implements ICommonConfig
         stopOnInteractWithEntity = data.get("stopOnInteractWithEntity").getAsJsonObject().get("stopOnInteractWithEntity").getAsBoolean();
         stopOnUsingItem = data.get("stopOnUsingItem").getAsJsonObject().get("stopOnUsingItem").getAsBoolean();
         stopAfterInactiveSeconds = data.get("stopAfterInactiveSeconds").getAsJsonObject().get("stopAfterInactiveSeconds").getAsInt();
+        keepSprintActive = data.get("keepSprintActive").getAsJsonObject().get("keepSprintActive").getAsBoolean();
     }
 }
