@@ -29,12 +29,11 @@ displayName="autowalk mod" #mandatory
 # A file name (in the root of the mod JAR) containing a logo for display
 logoFile="examplemod.png" #optional
 # A text field displayed in the mod UI
-credits="Thanks for this example mod goes to Java" #optional
 # A text field displayed in the mod UI
 authors="Someaddon" #optional
 # The description text for the mod (multi line!) (#mandatory)
 description='''
-autowalk mod
+Autowalk allows to toggle walking forwards
 '''
 # A dependency - use the . to indicate dependency for a specific modid. Dependencies are optional.
 [[dependencies.autowalk]] #optional
