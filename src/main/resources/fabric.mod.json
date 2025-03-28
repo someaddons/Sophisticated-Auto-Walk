@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "id": "autowalk",
+  "version": "${version}",
+
+  "name": "autowalk Mod",
+  "description": "autowalk allows to toggle walking forwards",
+  "authors": [
+    ""
+  ],
+  "contact": {
+    "homepage": "",
+    "sources": ""
+  },
+
+  "license": "ARR",
+  "icon": "assets/icon.png",
+
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "com.autowalk.AutoWalk"
+    ],
+    "client": [
+      "com.autowalk.AutoWalkClient"
+    ]
+  },
+  "mixins": [
+    "autowalk.mixins.json"
+  ],
+  "accessWidener": "autowalk.accessWidener",
+  "depends": {
+    "fabricloader": ">=0.11.3",
+    "fabric": "*",
+    "minecraft": "1.21.x",
+    "java": ">=17"
+  },
+  "suggests": {
+    "another-mod": "*"
+  }
+}
