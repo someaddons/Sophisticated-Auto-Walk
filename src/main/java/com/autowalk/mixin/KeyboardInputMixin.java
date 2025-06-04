@@ -2,8 +2,9 @@ package com.autowalk.mixin;
 
 import com.autowalk.AutoWalkClient;
 import net.minecraft.client.Options;
-import net.minecraft.client.player.Input;
+import net.minecraft.client.player.ClientInput;
 import net.minecraft.client.player.KeyboardInput;
+import net.minecraft.world.entity.player.Input;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -13,7 +14,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(KeyboardInput.class)
-public abstract class KeyboardInputMixin extends Input
+public abstract class KeyboardInputMixin extends ClientInput
 {
     @Shadow
     @Final
@@ -42,12 +43,20 @@ public abstract class KeyboardInputMixin extends Input
         prevDown = this.options.keyDown.isDown();
     }
 
-    @Inject(method = "tick", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/KeyMapping;isDown()Z", ordinal = 2))
+    @Inject(method = "tick", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/player/KeyboardInput;calculateImpulse(ZZ)F", ordinal = 0))
     private void checKAutoRun(final CallbackInfo ci)
     {
         if (AutoWalkClient.AUTO_RUN_ENABLED)
         {
-            up = true;
+            this.keyPresses = new Input(
+                true,
+                this.keyPresses.backward(),
+                this.keyPresses.left(),
+                this.keyPresses.right(),
+                this.keyPresses.jump(),
+                this.keyPresses.shift(),
+                this.keyPresses.sprint()
+            );
         }
     }
 }
