@@ -11,6 +11,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(KeyboardInput.class)
@@ -19,6 +20,10 @@ public abstract class KeyboardInputMixin extends ClientInput
     @Shadow
     @Final
     private Options options;
+
+    @Shadow protected static float calculateImpulse(final boolean bl, final boolean bl2){
+        return 1;
+    }
 
     @Unique
     private boolean prevUp = false;
@@ -43,20 +48,13 @@ public abstract class KeyboardInputMixin extends ClientInput
         prevDown = this.options.keyDown.isDown();
     }
 
-    @Inject(method = "tick", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/player/KeyboardInput;calculateImpulse(ZZ)F", ordinal = 0))
-    private void checKAutoRun(final CallbackInfo ci)
+    @ModifyVariable(method = "tick", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/player/KeyboardInput;calculateImpulse(ZZ)F", ordinal = 1), ordinal = 0)
+    private float checKAutoRun(final float org)
     {
         if (AutoWalkClient.AUTO_RUN_ENABLED)
         {
-            this.keyPresses = new Input(
-                true,
-                this.keyPresses.backward(),
-                this.keyPresses.left(),
-                this.keyPresses.right(),
-                this.keyPresses.jump(),
-                this.keyPresses.shift(),
-                this.keyPresses.sprint()
-            );
+            return calculateImpulse(true,this.keyPresses.backward());
         }
+        return org;
     }
 }
