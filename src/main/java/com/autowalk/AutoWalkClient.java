@@ -10,7 +10,7 @@ import net.minecraft.client.KeyMapping;
 public class AutoWalkClient implements ClientModInitializer
 {
     public static       boolean    AUTO_RUN_ENABLED = false;
-    public final static KeyMapping AUTORUN          = new KeyMapping("autowalk.keybind.name", InputConstants.Type.MOUSE, 2, "key.categories.movement");
+    public final static KeyMapping AUTORUN          = new KeyMapping("autowalk.keybind.name", InputConstants.Type.MOUSE, 2, KeyMapping.Category.MOVEMENT);
 
     @Override
     public void onInitializeClient()

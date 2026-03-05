@@ -87,7 +87,7 @@ public abstract class LocalPlayerMixin extends AbstractClientPlayer
     }
 
     @Inject(method = "startRiding", at = @At("HEAD"))
-    private void onStartRiding(final Entity p_108667_, final boolean p_108668_, final CallbackInfoReturnable<Boolean> cir)
+    private void onStartRiding(final Entity entity, final boolean bl, final boolean bl2, final CallbackInfoReturnable<Boolean> cir)
     {
         AutoWalkClient.AUTO_RUN_ENABLED = false;
     }
