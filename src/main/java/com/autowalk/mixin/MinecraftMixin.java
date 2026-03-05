@@ -24,26 +24,11 @@ public class MinecraftMixin
     @Final
     public Options options;
 
-    @Shadow public LocalPlayer player;
-
     @Inject(method = "<init>", at = @At("RETURN"))
     private void afterInit(final GameConfig p_91084_, final CallbackInfo ci)
     {
         ArrayList<KeyMapping> list = new ArrayList<>(Arrays.asList(options.keyMappings));
         list.add(AutoWalkClient.AUTORUN);
         options.keyMappings = list.toArray(new KeyMapping[0]);
-    }
-
-    @Inject(method = "pickBlock", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/player/Inventory;findSlotMatchingItem(Lnet/minecraft/world/item/ItemStack;)I"))
-    private void onPickBlock(
-        final CallbackInfo ci)
-    {
-        if (player != null && AutoWalk.config.getCommonConfig().stopOnPickBlock)
-        {
-            if (this.player.getAbilities().instabuild)
-            {
-                AutoWalkClient.AUTO_RUN_ENABLED = false;
-            }
-        }
     }
 }

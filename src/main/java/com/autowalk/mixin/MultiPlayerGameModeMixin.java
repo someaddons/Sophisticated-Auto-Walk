@@ -2,6 +2,7 @@ package com.autowalk.mixin;
 
 import com.autowalk.AutoWalk;
 import com.autowalk.AutoWalkClient;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.MultiPlayerGameMode;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.BlockPos;
@@ -14,6 +15,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
+import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -25,6 +27,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class MultiPlayerGameModeMixin
 {
     @Shadow private float destroyTicks;
+
+    @Shadow @Final private Minecraft minecraft;
 
     @Inject(method = "performUseItemOn", at = @At("RETURN"))
     private void checkResult(final LocalPlayer player, final InteractionHand p_233748_, final BlockHitResult blockHitResult, final CallbackInfoReturnable<InteractionResult> cir)
@@ -90,6 +94,19 @@ public class MultiPlayerGameModeMixin
         if (AutoWalk.config.getCommonConfig().stopOnInteractWithBlock && destroyTicks > 3 && cir.getReturnValue())
         {
             AutoWalkClient.AUTO_RUN_ENABLED = false;
+        }
+    }
+
+    @Inject(method = "handlePickItemFromBlock", at = @At(value = "HEAD"))
+    private void onPickBlock(
+        final CallbackInfo ci)
+    {
+        if (minecraft.player != null && AutoWalk.config.getCommonConfig().stopOnPickBlock)
+        {
+            if (minecraft.player.getAbilities().instabuild)
+            {
+                AutoWalkClient.AUTO_RUN_ENABLED = false;
+            }
         }
     }
 }
