@@ -7,7 +7,7 @@ import net.neoforged.neoforge.client.settings.IKeyConflictContext;
 public class AutoWalkClient
 {
     public static       boolean    AUTO_RUN_ENABLED = false;
-    public final static KeyMapping AUTORUN          = new KeyMapping("autowalk.keybind.name", InputConstants.Type.MOUSE, 2, "key.categories.movement");
+    public final static KeyMapping AUTORUN          = new KeyMapping("autowalk.keybind.name", InputConstants.Type.MOUSE, 2, KeyMapping.Category.MOVEMENT);
     static
     {
         AUTORUN.setKeyConflictContext(new IKeyConflictContext()
