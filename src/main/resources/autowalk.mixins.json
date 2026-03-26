@@ -10,8 +10,8 @@
     "KeyboardInputMixin",
     "KeyMappingMixin",
     "LocalPlayerMixin",
-    "MinecraftMixin",
     "MultiPlayerGameModeMixin",
+    "OptionsLoadKeyMixin",
     "ScreenMixin"
   ],
   "injectors": {
