@@ -55,23 +55,9 @@ public class MultiPlayerGameModeMixin
         }
     }
 
-    @Inject(method = "interactAt", at = @At("RETURN"))
-    private void onInteractAt(
-        final Player p_105231_,
-        final Entity entity,
-        final EntityHitResult p_105233_,
-        final InteractionHand p_105234_,
-        final CallbackInfoReturnable<InteractionResult> cir)
-    {
-        if (AutoWalk.config.getCommonConfig().stopOnInteractWithEntity)
-        {
-            AutoWalkClient.AUTO_RUN_ENABLED = false;
-        }
-    }
-
     @Inject(method = "interact", at = @At("RETURN"))
     private void onInteract(
-        final Player p_105227_, final Entity entity, final InteractionHand p_105229_, final CallbackInfoReturnable<InteractionResult> cir)
+        final Player player, final Entity entity, final EntityHitResult hitResult, final InteractionHand hand, final CallbackInfoReturnable<InteractionResult> cir)
     {
         if (AutoWalk.config.getCommonConfig().stopOnInteractWithEntity)
         {
